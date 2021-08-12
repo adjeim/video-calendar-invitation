@@ -1,10 +1,11 @@
 require('dotenv').config();
 const express = require('express');
-const app = express();
-const port = 5000;
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { google } = require('googleapis');
+
+const app = express();
+const port = 5000;
 
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
@@ -30,19 +31,17 @@ app.use(
     // Allow the server to accept requests from localhost:3000
     origin: 'http://localhost:3000',
 
-    // Allow session cookie from browser to pass through
+    // Allow cookies to be sent
     credentials: true
   })
 );
 
 app.use(express.json());
 
-// When the user first arrives, redirect them to the Google consent screen
 app.get('/auth', async (req, res) => {
   res.redirect(authUrl);
 });
 
-// Handle the code returned to the callback url, then get the Google access token and return index.html
 app.get('/auth/callback', async (req, res) => {
   const code = req.query.code;
 
@@ -74,9 +73,7 @@ app.post('/createEvent', async (req, res) => {
   const eventDetails = {
     'summary': eventData.summary,
     'location': 'Online',
-    // TODO: Link to the video room
-    'description': `<a href='https://www.twilio.com/blog/'>Twilio Blog</a>`,
-
+    'description': `Enter room name: ${eventData.summary}<br/><a href='YOUR_LINK_HERE'>Join Video Call</a>`,
     'start': {
       'dateTime': eventData.startDate,
     },
@@ -97,7 +94,7 @@ app.post('/createEvent', async (req, res) => {
       calendarId: 'primary',
       resource: eventDetails,
     })
-    console.log('Event created: %s', calendarEvent.data.htmlLink);
+    console.log(`Event created: ${calendarEvent.data.htmlLink}`);
     res.status(200).send({ createdEvent: calendarEvent.data.htmlLink });
 
   } catch (error) {

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-function EventConfirmation({eventData, setEventData, setEventCreated}) {
+const EventConfirmation = ({eventData, setEventData, setEventCreated}) => {
   const [error, setError] = useState('');
 
   if (eventData.error) {
@@ -25,7 +25,7 @@ function EventConfirmation({eventData, setEventData, setEventCreated}) {
       :
         <div>
           Event created!
-            <a class='block underline' href={eventData.createdEvent}>Click here to see your calendar invitation</a>
+            <a className='block underline' href={eventData.createdEvent}>Click here to see your calendar invitation</a>
             <button
               className='mx-auto mt-4 mb-10 bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded'
               onClick={handleReset}

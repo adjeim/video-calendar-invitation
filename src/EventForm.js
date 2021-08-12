@@ -1,20 +1,17 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import EventConfirmation from './EventConfirmation';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const EventForm = () => {
-
   const [attendees, setAttendees] = useState([]);
   const [summary, setSummary] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-
   const [eventCreated, setEventCreated] = useState(false);
   const [eventData, setEventData] = useState(false);
 
-
-  // Create an array of strings from the list of email addressses
+  // Create an array of strings from the list of email addresses
   const handleSetAttendees = (emails) => {
     const attendeeList = emails.split(',').map(email => email.trim())
     setAttendees(attendeeList)
@@ -42,10 +39,8 @@ const EventForm = () => {
       });
 
       const result = await response.json();
-
       setEventCreated(true);
       setEventData(result);
-
 
     } catch (error) {
       console.log(error)
@@ -95,7 +90,7 @@ const EventForm = () => {
               selected={startDate}
               onChange={(date) => setStartDate(date)}
               showTimeSelect
-              dateFormat="Pp"
+              dateFormat='Pp'
               className='block w-full bg-gray-50 text-gray-700 py-3 px-4 mb-3'
               id='startDateTime'
               name='startDateTime'
@@ -110,7 +105,7 @@ const EventForm = () => {
               selected={endDate}
               onChange={(date) => setEndDate(date)}
               showTimeSelect
-              dateFormat="Pp"
+              dateFormat='Pp'
               className='block w-full bg-gray-50 text-gray-700 py-3 px-4 mb-3'
               id='endDateTime'
               name='endDateTime'
