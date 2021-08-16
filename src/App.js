@@ -10,7 +10,7 @@ const App = () => {
         </div>
         <ul className='mr-10 font-semibold'>
           <li className='mr-6 p-1'>
-            <a href='http://localhost:5000/auth' className='text-pink-50 cursor-default hover:underline'>Login</a>
+            <a href='http://localhost:5000/auth' className='text-yellow-200 text-lg cursor-default hover:underline'>Login</a>
           </li>
         </ul>
       </header>
