@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import EventForm from './EventForm';
 
 const App = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check for cookie created after user login and consent
+    if (document.cookie && document.cookie.includes('access_token')) {
+      setLoggedIn(true);
+    }
+  }, []);
+
   return (
     <div className='flex flex-col min-h-screen bg-pink-100'>
       <header className='flex justify-between py-4 bg-pink-900'>
@@ -15,7 +24,9 @@ const App = () => {
         </ul>
       </header>
       <main className='w-full flex-grow'>
-        <EventForm />
+        <div className='mx-auto bg-pink-100'>
+          { loggedIn ? <EventForm /> : <div className='text-center mt-10'>Click the login button to begin!</div>}
+        </div>
       </main>
       <footer className='w-full bg-pink-900 mx-auto'>
         <div className='flex text-center text-white justify-center mt-2'>📅</div>
